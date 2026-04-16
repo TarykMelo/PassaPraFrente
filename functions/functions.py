@@ -199,7 +199,7 @@ def seller_menu(usuario):
             console.print("[green]Abrindo o menu para registrar a venda...[/green]")
             sell_item(usuario)
             time.sleep(1)
-            break
+            continue
         elif user_choice == 2:
             console.print("[green]Acessando a suas vendas...[/green]")
             seller_products(usuario)
