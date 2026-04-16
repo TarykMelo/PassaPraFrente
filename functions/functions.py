@@ -18,7 +18,7 @@ def cadastro():
             title="[bold green]Área de cadastro[/bold green]",
             border_style="green"
         ))
-        email = input("Email institucional(exemplo@ufrpe.br): ").lower().strip()
+        email = input("Email institucional(nome.sobrenome@ufrpe.br): ").lower().strip()
         validation = validar_email(email)
 
         if validation:
@@ -97,7 +97,7 @@ def cadastro():
             if success:
                 print("Telefone aceito, conta cadastrada!")
             else:
-                print("Já possui uma conta cadastrada com esse email ou senha")
+                print("Já possui uma conta cadastrada com esse email ou nickname!")
             time.sleep(2)
             break
         else:
@@ -202,11 +202,13 @@ def seller_menu(usuario):
             break
         elif user_choice == 2:
             console.print("[green]Acessando a suas vendas...[/green]")
+            seller_products(usuario)
             time.sleep(1)
-            break
+            continue
         elif user_choice == 3:
             console.print("[green]Voltando para o menu principal...[/green]")
             time.sleep(1)
+            user_menu(usuario)
             break
         elif user_choice == 4:
             console.print("[red]Saindo...[/red]")

@@ -13,7 +13,7 @@ def criar_tabela():
     conn = conectar()
     cursor = conn.cursor()
     cursor.execute("""
-        CREATE TABLE IF NOT EXISTS usuarios (
+        CREATE TABLE IF NOT EXISTS usuario (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             email TEXT NOT NULL UNIQUE,
             senha TEXT NOT NULL,
@@ -31,7 +31,7 @@ def salvar_usuario(email, senha, nickname, telefone):
         cursor = conn.cursor()
         senha_hash = bcrypt.hashpw(senha.encode(), bcrypt.gensalt())  # criptografa a senha
         cursor.execute(
-            "INSERT INTO usuarios (email, senha, nickname, telefone) VALUES (?, ?, ?, ?)",
+            "INSERT INTO usuario (email, senha, nickname, telefone) VALUES (?, ?, ?, ?)",
             (email, senha_hash, nickname, telefone)
         )
         conn.commit()
@@ -45,7 +45,7 @@ def salvar_usuario(email, senha, nickname, telefone):
 def buscar_usuario(email):
     conn = conectar()
     cursor = conn.cursor()
-    cursor.execute("SELECT * FROM usuarios WHERE email = ?", (email, )
+    cursor.execute("SELECT * FROM usuario WHERE email = ?", (email, )
 )
     usuario = cursor.fetchone()
     conn.close()
@@ -58,7 +58,7 @@ def product_table():
     conn = conectar()
     cursor = conn.cursor()
     cursor.execute("""
-        CREATE TABLE IF NOT EXISTS produtos (
+        CREATE TABLE IF NOT EXISTS produto (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             nome TEXT NOT NULL,
             descricao TEXT NOT NULL,
@@ -79,7 +79,7 @@ def save_product(nome, descricao, preco, usuario):
         conn = conectar()
         cursor = conn.cursor()
         cursor.execute(
-                "INSERT INTO produtos(nome, descricao, preco, vendedor_id, vendedor_nickname, vendedor_telefone) VALUES (?, ?, ?, ?, ?, ?)",
+                "INSERT INTO produto(nome, descricao, preco, vendedor_id, vendedor_nickname, vendedor_telefone) VALUES (?, ?, ?, ?, ?, ?)",
                 (nome, descricao, preco, usuario[0], usuario[3], usuario[4])
         )
         conn.commit()
@@ -88,3 +88,13 @@ def save_product(nome, descricao, preco, usuario):
     except Exception as e:
         print(f"[red]Erro ao salvar o produto: {e}[/red]")
         return False
+    
+# Buscar produtos do banco de dados
+
+def meus_produtos(usuario):
+    conn = conectar()
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM produto WHERE vendedor_id = ?", (usuario[0],))
+    produtos = cursor.fetchall()
+    conn.close()
+    return produtos

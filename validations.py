@@ -4,7 +4,7 @@ import time
 Validação de email
 """
 def validar_email(email):
-    email_padrao = r"^[a-zA-Z.]+@ufrpe\.br$"
+    email_padrao = r"^[a-zA-Z.]+.+[a-zA-Z.]+@ufrpe\.br$"
     return re.match(email_padrao, email)
 
 

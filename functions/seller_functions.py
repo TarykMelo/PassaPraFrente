@@ -64,3 +64,34 @@ def sell_item(usuario):
             console.print("[red]Opção inválida! Digite s ou n[/red]")
             time.sleep(2)
             continue
+
+
+def seller_products(usuario):
+    while True:
+        limpar_terminal()
+        produtos = meus_produtos(usuario)
+
+        if not produtos:
+            console.print(Panel(
+                "[red]Nenhum produto cadastrado ainda![/red]",
+                title="[bold white]Área do vendedor - Meus produtos[/bold white]",
+                border_style="purple"
+                ))
+            time.sleep(2)
+            break
+        texto = ""
+        for produto in produtos:
+            texto +=(
+                f"[bold]{produto[0]}- {produto[1]}[/bold]\n"
+                f"Descrição: {produto[2]}\n"
+                f"Preço: R${produto[3]:.2f}\n"
+                f"{'-' * 40}\n"
+            )
+        console.print(Panel(
+            texto,
+            title="[bold white]Área do vendedor - Meus produtos[/bold white]",
+            border_style="purple"
+        ))
+        input("Pressione Enter para voltar")
+        break
+
