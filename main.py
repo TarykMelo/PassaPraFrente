@@ -19,23 +19,29 @@ def menu_inicial():
             border_style="green"
         ))
 
-        user_choice = int(input("Escolha a sua opção: "))
+        try:
 
-        if user_choice == 1:
-            console.print("[green]Indo para a área de cadastro...[/green]")
-            time.sleep(2)
-            cadastro()
-            break
-        elif user_choice == 2:
-            console.print("[green]Indo para a área de login...[/green]")
-            time.sleep(2)
-            login()
-            break
-        elif user_choice == 3:
-            console.print("[red]Fechando o programa...[/red]")
-            time.sleep(2)
-            break
-        else:
+            user_choice = int(input("Escolha a sua opção: ").strip())
+
+            if user_choice == 1:
+                console.print("[green]Indo para a área de cadastro...[/green]")
+                time.sleep(2)
+                cadastro()
+                continue
+            elif user_choice == 2:
+                console.print("[green]Indo para a área de login...[/green]")
+                time.sleep(2)
+                login()
+                break
+            elif user_choice == 3:
+                console.print("[red]Fechando o programa...[/red]")
+                time.sleep(2)
+                break
+            else:
+                console.print("[red]Opção inválida, escolha uma das opções acima![/red]")
+                time.sleep(2)
+                continue
+        except ValueError, AttributeError:
             console.print("[red]Opção inválida, escolha uma das opções acima![/red]")
             time.sleep(2)
             continue

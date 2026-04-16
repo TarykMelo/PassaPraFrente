@@ -59,13 +59,13 @@ def sell_item(usuario):
         elif confirm == "n":
             console.print("[red]Cancelando a venda...[/red]")
             time.sleep(2)
-            continue
+            break
         else:
             console.print("[red]Opção inválida! Digite s ou n[/red]")
             time.sleep(2)
             continue
 
-
+# Função para ver os produtos cadastrados.
 def seller_products(usuario):
     while True:
         limpar_terminal()
@@ -92,6 +92,57 @@ def seller_products(usuario):
             title="[bold white]Área do vendedor - Meus produtos[/bold white]",
             border_style="purple"
         ))
-        input("Pressione Enter para voltar")
-        break
+
+        console.print("[purple][1] Remover algum produto\n[/purple]" \
+        "[purple][2] Voltar[/purple]")
+
+        try:
+            option = int(input("Escolha a opção: ").strip())
+            
+            if option == 1:
+                # Usuário escolheu remover o item
+                while True:
+                    console.print("Escolha qual produto você quer retirar")
+                    try:
+
+                        produto_id = int(input("Digite o # do produto que você quer remover: ").strip())
+
+                        id_valido = [produto[0] for produto in produtos]
+
+                        if produto_id not in id_valido:
+                            console.print("[red]Produto não foi encontrado![/red]")
+                            time.sleep(2)
+                            continue
+
+                        confirm = input(f"Produto encontrado! #{produto_id} Tem certeza que deseja deletar ele?(s ou n):").lower().strip()
+
+                        if confirm == "s":
+                            remove_product(produto_id, usuario)
+                            console.print("[green]Produto removido com sucesso![/green]")
+                            time.sleep(2)
+                            break
+                        elif confirm == "n":
+                            console.print("[yellow]Cancelado![/yellow]")
+                            time.sleep(2)
+                            break
+                        else:
+                            console.print("Escolha s ou n")
+                            time.sleep(2)
+
+                    except ValueError:
+                        print("[red]Opção inválida![/red]")
+                        time.sleep(2)
+                
+            elif option == 2:
+                console.print("[purple]Voltar para a área de vendedor[/purple]")
+                time.sleep(1)
+                break
+            else:
+                console.print("[red]Opção inválida! digite 1 ou 2[/red]")
+                time.sleep(2)
+                continue
+        except ValueError:
+            console.print("[red]Opção inválida! digite 1 ou 2[/red]")
+            time.sleep(2)
+            continue
 

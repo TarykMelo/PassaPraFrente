@@ -98,3 +98,14 @@ def meus_produtos(usuario):
     produtos = cursor.fetchall()
     conn.close()
     return produtos
+
+# Função para deletar o produto do banco de dados caso o vendedor queira
+
+def remove_product(produto_id ,usuario):
+    conn = conectar()
+    cursor = conn.cursor()
+    cursor.execute(
+        "DELETE FROM produto WHERE id= ? AND vendedor_id= ?",
+        (produto_id, usuario[0]))
+    conn.commit()
+    conn.close()

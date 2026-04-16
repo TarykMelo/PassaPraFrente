@@ -13,6 +13,7 @@ def cadastro():
 
     #Digitar email
     while True:
+        limpar_terminal()
         console.print(Panel(
             "Digite seu email institucional e crie uma senha para se cadastrar.",
             title="[bold green]Área de cadastro[/bold green]",
@@ -152,30 +153,35 @@ def user_menu(usuario):
             border_style="green"
         ))
 
-        user_choice = int(input("Digite a sua opção: "))
+        try:
 
-        if user_choice == 1:
-            console.print("[green]Vamos vender![/green]")
-            seller_menu(usuario)
-            time.sleep(2)
-            break
-        elif user_choice == 2:
-            console.print("[green]Hora de comprar![/green]")
-            time.sleep(2)
-            break
-        elif user_choice == 3:
-            console.print("[green]Indo acessar os dados pessoais...[/green]")
-            time.sleep(2)
-            break
-        elif user_choice == 4:
-            console.print("[red]Saindo...[/red]")
-            time.sleep(2)
-            break
-        else:
+            user_choice = int(input("Digite a sua opção: ").strip())
+
+            if user_choice == 1:
+                console.print("[green]Vamos vender![/green]")
+                seller_menu(usuario)
+                time.sleep(2)
+                break
+            elif user_choice == 2:
+                console.print("[green]Hora de comprar![/green]")
+                time.sleep(2)
+                break
+            elif user_choice == 3:
+                console.print("[green]Indo acessar os dados pessoais...[/green]")
+                time.sleep(2)
+                break
+            elif user_choice == 4:
+                console.print("[red]Saindo...[/red]")
+                time.sleep(2)
+                break
+            else:
+                console.print("[red]Opção inválida, escolha uma das opções acima![/red]")
+                time.sleep(2)
+                continue
+        except ValueError:
             console.print("[red]Opção inválida, escolha uma das opções acima![/red]")
             time.sleep(2)
             continue
-
 
 #Menu do vendedor
 
@@ -193,28 +199,34 @@ def seller_menu(usuario):
             border_style="purple"
         ))
 
-        user_choice = int(input("Digite a sua opção: "))
+        try:
+        
+            user_choice = int(input("Digite a sua opção: ").strip())
 
-        if user_choice == 1:
-            console.print("[green]Abrindo o menu para registrar a venda...[/green]")
-            sell_item(usuario)
-            time.sleep(1)
-            continue
-        elif user_choice == 2:
-            console.print("[green]Acessando a suas vendas...[/green]")
-            seller_products(usuario)
-            time.sleep(1)
-            continue
-        elif user_choice == 3:
-            console.print("[green]Voltando para o menu principal...[/green]")
-            time.sleep(1)
-            user_menu(usuario)
-            break
-        elif user_choice == 4:
-            console.print("[red]Saindo...[/red]")
-            time.sleep(2)
-            break
-        else:
+            if user_choice == 1:
+                console.print("[green]Abrindo o menu para registrar a venda...[/green]")
+                sell_item(usuario)
+                time.sleep(1)
+                continue
+            elif user_choice == 2:
+                console.print("[green]Acessando a suas vendas...[/green]")
+                seller_products(usuario)
+                time.sleep(1)
+                continue
+            elif user_choice == 3:
+                console.print("[green]Voltando para o menu principal...[/green]")
+                time.sleep(1)
+                user_menu(usuario)
+                break
+            elif user_choice == 4:
+                console.print("[red]Saindo...[/red]")
+                time.sleep(2)
+                break
+            else:
+                console.print("[red]Opção inválida, escolha uma das opções acima![/red]")
+                time.sleep(2)
+                continue
+        except ValueError:
             console.print("[red]Opção inválida, escolha uma das opções acima![/red]")
             time.sleep(2)
             continue
