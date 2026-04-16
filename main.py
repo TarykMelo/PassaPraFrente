@@ -1,4 +1,4 @@
-from functions.functions import*
+from functions.functions_main import*
 import time
 from rich.console import Console
 from rich.panel import Panel

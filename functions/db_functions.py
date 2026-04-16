@@ -1,7 +1,6 @@
-from functions.functions import*
+from functions.functions_main import*
 from validations import*
 import sqlite3
-import bcrypt
 from rich.console import Console
 """"Banco de dados"""
 #conectar com o banco de dados
@@ -29,10 +28,9 @@ def salvar_usuario(email, senha, nickname, telefone):
     try:
         conn = conectar()
         cursor = conn.cursor()
-        senha_hash = bcrypt.hashpw(senha.encode(), bcrypt.gensalt())  # criptografa a senha
         cursor.execute(
             "INSERT INTO usuario (email, senha, nickname, telefone) VALUES (?, ?, ?, ?)",
-            (email, senha_hash, nickname, telefone)
+            (email, senha, nickname, telefone)
         )
         conn.commit()
         conn.close()
@@ -109,3 +107,20 @@ def remove_product(produto_id ,usuario):
         (produto_id, usuario[0]))
     conn.commit()
     conn.close()
+
+# Remover usuário do banco de dados
+
+def remove_user(usuario):
+    try:
+        conn = conectar()
+        cursor = conn.cursor()
+        cursor.execute("DELETE FROM produto WHERE vendedor_id = ?",
+                    (usuario[0],))
+        cursor.execute("DELETE FROM usuario WHERE id = ?",
+                    (usuario[0],))
+        conn.commit()
+        conn.close()
+        return True
+    except Exception as e:
+        print(f"Erro ao deletar a conta {e}")
+        return False

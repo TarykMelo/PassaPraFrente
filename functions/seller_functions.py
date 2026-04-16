@@ -3,7 +3,7 @@ import time
 from rich.panel import Panel
 from utils import*
 from functions.db_functions import*
-from functions.functions import*
+from functions.functions_main import*
 
 # CADASTRAR O PRODUTO PARA VENDER
 
@@ -18,18 +18,19 @@ def sell_item(usuario):
             title="[bold white]Área do vendedor - Vender produto[/bold white]",
             border_style="purple"
         ))
+        #Nome do produto
         nome = input("Nome do produto: ").strip()
         if not nome:
             console.print("[red]❌ O nome não pode ser vazio![/red]")
             time.sleep(2)
             continue
-        
+        #Descrição do produto
         descricao = input("Coloque uma descrição do produto: ")
         if not descricao:
             console.print("[red]❌ A descrição não pode ser vazia![/red]")
             time.sleep(2)
             continue
-        
+        #Colocar o preço do produto
         try:
             preco = float(input("Coloque o preço do produto que você quer vender: R$ ").replace(",", "."))
             if preco <=0:
@@ -40,7 +41,7 @@ def sell_item(usuario):
             console.print("[red]Preço inválido, use números (exemplo R45.50[/red]")
             time.sleep(3)
             continue
-
+        #Confiramção do produto, sim salva no banco de dados, não volta pro menu de vendedor
         console.print(Panel(
             "Essas são as informações que você cadastrou:\n"
             f"{nome}"

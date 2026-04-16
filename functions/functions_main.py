@@ -1,10 +1,10 @@
-import os
 from validations import*
 import time
 from rich.panel import Panel
 from utils import*
 from functions.db_functions import*
 from functions.seller_functions import*
+from functions.user_functions import*
     
 
 
@@ -124,9 +124,9 @@ def login():
             time.sleep(2)
             continue
         
-        senha_hash = usuario[2]
+        senha = usuario[2]
 
-        if bcrypt.checkpw(senha.encode(), senha_hash):
+        if senha:
             console.print(f"[green]Bem-vindo, {usuario[3]}![/green] ")
             time.sleep(2)
             user_menu(usuario)
@@ -148,7 +148,8 @@ def user_menu(usuario):
             "[1] Vender item\n"
             "[2] Comprar item\n"
             "[3] Modificar os dados do usuário\n"
-            "[4] Sair",
+            "[4] Deletar a conta\n"
+            "[5] Sair",
             title="[bold white]Menu do usuário[/bold white]",
             border_style="green"
         ))
@@ -171,6 +172,9 @@ def user_menu(usuario):
                 time.sleep(2)
                 break
             elif user_choice == 4:
+                user_remove(usuario)
+                break
+            elif user_choice == 5:
                 console.print("[red]Saindo...[/red]")
                 time.sleep(2)
                 break
