@@ -5,6 +5,7 @@ from utils import*
 from functions.db_functions import*
 from functions.seller_functions import*
 from functions.user_functions import*
+import maskpass
     
 
 
@@ -43,11 +44,11 @@ def cadastro():
             title="[bold white]Área de cadastro[/bold white]",
             border_style="green"
         ))
-        senha = input("Crie uma senha: ").strip()
+        senha = maskpass.askpass("Crie uma senha: ", mask="*").strip()
         senha_validation , erro = validar_senha(senha)
 
         if senha_validation:
-            confirm = input("Confirme a sua senha: ").strip()
+            confirm = maskpass.askpass("Confirme a sua senha: ", mask="*").strip()
             if confirm == senha:
                 print("Senha cadastrada!")
                 time.sleep(1)
@@ -115,7 +116,7 @@ def login():
             border_style="green"
         ))
         email = input("Insira o seu email: ").lower().strip()
-        senha = input("Insira a sua senha: ").strip()
+        senha = maskpass.askpass("Insira a sua senha: ", mask="*").strip()
 
         usuario = buscar_usuario(email)
         
@@ -168,12 +169,13 @@ def user_menu(usuario):
                 time.sleep(2)
                 break
             elif user_choice == 3:
-                console.print("[green]Indo acessar os dados pessoais...[/green]")
-                time.sleep(2)
-                break
+                console.print("[yellow]Indo acessar os dados pessoais...[/yellow]")
+                user_modify(usuario)
+                time.sleep(1)
+                continue
             elif user_choice == 4:
                 user_remove(usuario)
-                break
+                continue
             elif user_choice == 5:
                 console.print("[red]Saindo...[/red]")
                 time.sleep(2)
