@@ -6,6 +6,7 @@ from functions.db_functions import*
 from functions.seller_functions import*
 from functions.user_functions import*
 import maskpass
+from functions.buyer_functions import*
     
 
 
@@ -161,12 +162,13 @@ def user_menu(usuario):
 
             if user_choice == 1:
                 console.print("[green]Vamos vender![/green]")
-                seller_menu(usuario)
                 time.sleep(2)
+                seller_menu(usuario)
                 break
             elif user_choice == 2:
-                console.print("[green]Hora de comprar![/green]")
+                console.print("[blue]Hora de comprar![/blue]")
                 time.sleep(2)
+                buyer_menu(usuario)
                 break
             elif user_choice == 3:
                 console.print("[yellow]Indo acessar os dados pessoais...[/yellow]")
@@ -225,6 +227,58 @@ def seller_menu(usuario):
                 user_menu(usuario)
                 break
             elif user_choice == 4:
+                console.print("[red]Saindo...[/red]")
+                time.sleep(2)
+                break
+            else:
+                console.print("[red]Opção inválida, escolha uma das opções acima![/red]")
+                time.sleep(2)
+                continue
+        except ValueError:
+            console.print("[red]Opção inválida, escolha uma das opções acima![/red]")
+            time.sleep(2)
+            continue
+
+#Menu do usuário para comprar o item
+
+def buyer_menu(usuario):
+    while True:
+        limpar_terminal()
+
+        console.print(Panel(
+            f"Bem-vindo a area de venda {usuario[3]}\n"
+            "[1] Ver todos os produtos disponiveis\n"
+            "[2] Filtrar para uma categoria especifica\n"
+            "[3] Ver os produtos selecionados\n"
+            "[4] Voltar para o menu de usuário\n"
+            "[5] Sair do programa\n",
+            title="[bold white]Área do comprador[/bold white]",
+            border_style="blue"
+        ))
+
+        try:
+        
+            user_choice = int(input("Digite a sua opção: ").strip())
+
+            if user_choice == 1:
+                console.print("[green]Acessando os produtos disponiveis...[/green]")
+                time.sleep(1)
+                products_available(usuario)
+                continue
+            elif user_choice == 2:
+                console.print("[green]Acessando as categorias disponiveis[/green]")
+                time.sleep(1)
+                continue
+            elif user_choice == 3:
+                console.print("[green]Acessando os produtos que você escolheu![/green]")
+                time.sleep(1)
+                continue
+            elif user_choice == 4:
+                console.print("[green]Voltando para o menu principal...[/green]")
+                time.sleep(1)
+                user_menu(usuario)
+                break
+            elif user_choice == 5:
                 console.print("[red]Saindo...[/red]")
                 time.sleep(2)
                 break

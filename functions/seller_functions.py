@@ -83,7 +83,7 @@ def seller_products(usuario):
         texto = ""
         for produto in produtos:
             texto +=(
-                f"[bold]{produto[0]}- {produto[1]}[/bold]\n"
+                f"[bold]#{produto[0]} - {produto[1]}[/bold]\n"
                 f"Descrição: {produto[2]}\n"
                 f"Preço: R${produto[3]:.2f}\n"
                 f"{'-' * 40}\n"

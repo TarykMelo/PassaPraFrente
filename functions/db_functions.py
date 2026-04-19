@@ -124,3 +124,13 @@ def remove_user(usuario):
     except Exception as e:
         print(f"Erro ao deletar a conta {e}")
         return False
+
+# Acessar todos os produtos disponiveis a venda
+
+def todos_produtos(usuario):
+    conn = conectar()
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM produto")
+    produtos = cursor.fetchall()
+    conn.close()
+    return produtos
