@@ -61,6 +61,8 @@ def product_table():
             nome TEXT NOT NULL,
             descricao TEXT NOT NULL,
             preco REAL NOT NULL,
+            local_de_venda TEXT NOT NULL,
+            categoria TEXT NOT NULL,
             vendedor_id INTEGER NOT NULL,
             vendedor_nickname TEXT NOT NULL,
             vendedor_telefone TEXT NOT NULL,
@@ -72,13 +74,13 @@ def product_table():
 
 #função para salvar o produto no banco de dados
 
-def save_product(nome, descricao, preco, usuario):
+def save_product(nome, descricao, preco, local_de_venda, categoria, usuario):
     try:
         conn = conectar()
         cursor = conn.cursor()
         cursor.execute(
-                "INSERT INTO produto(nome, descricao, preco, vendedor_id, vendedor_nickname, vendedor_telefone) VALUES (?, ?, ?, ?, ?, ?)",
-                (nome, descricao, preco, usuario[0], usuario[3], usuario[4])
+                "INSERT INTO produto(nome, descricao, preco, local_de_venda, categoria, vendedor_id, vendedor_nickname, vendedor_telefone) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+                (nome, descricao, preco, local_de_venda, categoria, usuario[0], usuario[3], usuario[4])
         )
         conn.commit()
         conn.close()

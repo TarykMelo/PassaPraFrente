@@ -5,6 +5,15 @@ from utils import*
 from functions.db_functions import*
 from functions.functions_main import*
 
+CATEGORIAS = {
+    "1": "Eletrônicos",
+    "2": "Livros",
+    "3": "Roupas",
+    "4": "Móveis",
+    "5": "Esportes",
+    "6": "Outros"
+}
+
 # CADASTRAR O PRODUTO PARA VENDER
 
 def sell_item(usuario):
@@ -12,9 +21,11 @@ def sell_item(usuario):
         limpar_terminal()
         console.print(Panel(
             "Cadastre o produto que você quer vender abaixo, é necessario inserir:\n"
-            "Nome do produto\n"
-            "Descrição do produto\n"
-            "Preço do produto\n",
+            "1. Nome do produto\n"
+            "2. Descrição do produto\n"
+            "3. Preço do produto\n"
+            "4. Local de venda\n"
+            "5. Categoria\n",
             title="[bold white]Área do vendedor - Vender produto[/bold white]",
             border_style="purple"
         ))
@@ -41,18 +52,51 @@ def sell_item(usuario):
             console.print("[red]Preço inválido, use números (exemplo R45.50[/red]")
             time.sleep(3)
             continue
-        #Confiramção do produto, sim salva no banco de dados, não volta pro menu de vendedor
+
+        #Colocar o local de venda    
+        local_de_venda = input("Local da UFRPE e horário (exemplo: CEAGRI, 17h-18h)")
+
+        if not local_de_venda:
+            console.print("[red]Você precisa digitar alguma coisa![/red]")
+            time.sleep(2)
+            continue
+
+        #Adicionar a categoria
+        limpar_terminal()
         console.print(Panel(
-            "Essas são as informações que você cadastrou:\n"
-            f"{nome}"
-            f"{descricao}\n"
-            f"R${preco}",
+            "Que categoria o seu produto se encaixa?\n"
+            "[1] Eletrônicos\n"
+            "[2] Livros\n"
+            "[3] Roupas\n"
+            "[4] Móveis\n"
+            "[5] Esportes\n"
+            "[6] Outros",
             title="[bold white]Área do vendedor - Vender produto[/bold white]",
             border_style="purple"
         ))
-        confirm = input("Deseja colocar o produto a venda?/(s ou n)")
+
+        escolha_cat = input("Escolha a categoria: ").strip()
+        if escolha_cat not in CATEGORIAS:
+            console.print("[red]Escolha uma das categorias disponíveis![/red]")
+            time.sleep(2)
+            continue
+
+        categoria = CATEGORIAS[escolha_cat]
+
+        #Confiramção do produto, sim salva no banco de dados, não volta pro menu de vendedor
+        console.print(Panel(
+            "Essas são as informações que você cadastrou:\n"
+            f"Nome: {nome}"
+            f"Descrição: {descricao}\n"
+            f"Preço: R${preco:.2f}\n"
+            f"Local e horário: {local_de_venda}\n"
+            f"Caegoria: {categoria}",
+            title="[bold white]Área do vendedor - Vender produto[/bold white]",
+            border_style="purple"
+        ))
+        confirm = input("Os dados estão corretos?/(s ou n)")
         if confirm == "s":
-            sucesso = save_product(nome, descricao, preco, usuario)
+            sucesso = save_product(nome, descricao, preco, local_de_venda, categoria, usuario)
             if sucesso:
                 console.print("[purple]O seu produto foi colocado a venda, obrigado![/purple]")
             time.sleep(2)
@@ -86,6 +130,8 @@ def seller_products(usuario):
                 f"[bold]#{produto[0]} - {produto[1]}[/bold]\n"
                 f"Descrição: {produto[2]}\n"
                 f"Preço: R${produto[3]:.2f}\n"
+                f"Local e horário: {produto[4]}\n"
+                f"Categoria: {produto[5]}\n"
                 f"{'-' * 40}\n"
             )
         console.print(Panel(

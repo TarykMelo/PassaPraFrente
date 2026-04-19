@@ -40,3 +40,5 @@ def products_available(usuario):
         border_style="blue"
     ))
     input("Digite ENTER para voltar")
+
+# Função para filtrar a categoria e ver os produtos disponíveis de lá
