@@ -1,7 +1,7 @@
 import time
 from rich.panel import Panel
 from utils import*
-from functions.db_functions import todos_produtos
+from functions.db_functions import*
 from functions.seller_functions import*
 from functions.user_functions import*
 from functions.functions_main import*
@@ -30,8 +30,10 @@ def products_available(usuario):
             f"[bold]#{produto[0]} - {produto[1]}[/bold]\n"
             f"Descrição: {produto[2]}\n"
             f"Preço: R${produto[3]:.2f}\n"
-            f"Vendedor: {produto[5]}\n"
-            f"Telefone: {produto[6]}\n"
+            f"Local e horário: {produto[4]}\n"
+            f"Categoria: {produto[5]}"
+            f"Vendedor: {produto[7]}\n"
+            f"Telefone: {produto[8]}\n"
             f"{'-' * 40}\n"
         )
     console.print(Panel(
@@ -42,3 +44,64 @@ def products_available(usuario):
     input("Digite ENTER para voltar")
 
 # Função para filtrar a categoria e ver os produtos disponíveis de lá
+
+def filtrar_produto():
+    limpar_terminal()
+    console.print(Panel(
+        "[1] Eletrônicos\n"
+        "[2] Livros\n"
+        "[3] Roupas\n"
+        "[4] Móveis\n"
+        "[5] Esportes\n"
+        "[6] Outros\n"
+        "[7] Todos",
+        title="[bold white]Área do comprador - Filtros[/bold white]",
+        border_style="blue"
+    ))
+
+    escolha = input("Escolha uma categoria: ").strip()
+
+    conn = conectar()
+    cursor = conn.cursor()
+
+    if escolha == "7":
+        cursor.execute("SELECT * FROM produto")
+    elif escolha in CATEGORIAS:
+        cursor.execute("SELECT * FROM PRODUTO WHERE categoria = ?",
+                       (CATEGORIAS[escolha],)
+        )
+    else:
+        console.print("[red]Escolha uma das categorias disponíveis![/red]")
+        time.sleep(2)
+        return
+    
+    produtos = cursor.fetchall()
+    conn.close()
+
+    if not produtos:
+        console.print(Panel(
+            "Nenhum produto nessa categoria!",
+            title="[bold white]Área do comprador - Filtros[/bold white]",
+            border_style="blue"
+        ))
+        input("Pressione ENTER para voltar")
+        return
+    
+    texto = ""
+    for produto in produtos:
+            texto +=(
+                f"[bold]#{produto[0]} - {produto[1]}[/bold]\n"
+                f"Descrição: {produto[2]}\n"
+                f"Preço: R${produto[3]:.2f}\n"
+                f"Local e horário: {produto[4]}\n"
+                f"Categoria: {produto[5]}"
+                f"Vendedor: {produto[7]}\n"
+                f"Telefone: {produto[8]}\n"
+                f"{'-' * 40}\n"
+            )
+    console.print(Panel(
+        texto,
+        title="[bold white]Área do comprador - Filtros[/bold white]",
+        border_style="blue"
+    ))
+    input("Pressione ENTER para voltar")

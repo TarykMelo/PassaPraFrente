@@ -268,6 +268,7 @@ def buyer_menu(usuario):
             elif user_choice == 2:
                 console.print("[green]Acessando as categorias disponiveis[/green]")
                 time.sleep(1)
+                filtrar_produto()
                 continue
             elif user_choice == 3:
                 console.print("[green]Acessando os produtos que você escolheu![/green]")
