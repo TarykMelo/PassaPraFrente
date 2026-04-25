@@ -122,7 +122,7 @@ def seller_products(usuario):
                 title="[bold white]Área do vendedor - Meus produtos[/bold white]",
                 border_style="purple"
                 ))
-            time.sleep(2)
+            time.sleep(3)
             break
         texto = ""
         for produto in produtos:

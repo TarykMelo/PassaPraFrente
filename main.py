@@ -2,8 +2,8 @@ from functions.functions_main import*
 import time
 from rich.console import Console
 from rich.panel import Panel
-from utils import*
-from functions.db_functions import*
+from utils import limpar_terminal
+from functions.db_functions import product_table, criar_tabela
 
 
 
