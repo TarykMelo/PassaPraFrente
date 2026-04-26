@@ -1,14 +1,26 @@
 from functions.functions_main import*
-from validations import*
+from utils.validations import*
 import sqlite3
 from rich.console import Console
-""""Banco de dados"""
-#conectar com o banco de dados
+"""
+Módulo db_functions
+
+Este módulo contém todas as funções relacionadas ao banco de dados SQLite. Inclui operações para conectar ao DB, criar tabelas,
+inserir, buscar, atualizar e deletar usuários e produtos.
+"""
 def conectar():
+    """
+    Conexão com o banco de dados SQLite.
+    """
     return sqlite3.connect("passaprafrente.db")
 
-#Criar uma tabela caso não exista
 def criar_tabela():
+    """
+    Cria a tabela 'usuario' no banco de dados se ela não existir.
+
+    A tabela inclui campos para id, email, senha, nickname e telefone,
+    com constraints de unicidade para email e nickname.
+    """
     conn = conectar()
     cursor = conn.cursor()
     cursor.execute("""
@@ -23,8 +35,10 @@ def criar_tabela():
     conn.commit()
     conn.close()
 
-#Salvar usuário pro banco
 def salvar_usuario(email, senha, nickname, telefone):
+    """
+    Insere um novo usuário no banco de dados.
+    """
     try:
         conn = conectar()
         cursor = conn.cursor()
@@ -36,11 +50,13 @@ def salvar_usuario(email, senha, nickname, telefone):
         conn.close()
         return True
     except sqlite3.IntegrityError:
-        return False  # email ou nickname já cadastrado
+        return False  
     
-#Descobrir se o usuário existe na aba de login
 
 def buscar_usuario(email):
+    """
+    Busca um usuário no banco de dados pelo email.
+    """
     conn = conectar()
     cursor = conn.cursor()
     cursor.execute("SELECT * FROM usuario WHERE email = ?", (email, )
@@ -50,9 +66,14 @@ def buscar_usuario(email):
     return usuario
 
 
-# Criar banco de dados para cadastro de produtos
 
 def product_table():
+    """
+    Cria a tabela 'produto' no banco de dados se ela não existir.
+
+    A tabela inclui campos para id, nome, descricao, preco, local_de_venda,
+    categoria, vendedor_id, vendedor_nickname, vendedor_telefone.
+    """
     conn = conectar()
     cursor = conn.cursor()
     cursor.execute("""
@@ -72,9 +93,11 @@ def product_table():
     conn.commit()
     conn.close()
 
-#função para salvar o produto no banco de dados
 
 def save_product(nome, descricao, preco, local_de_venda, categoria, usuario):
+    """
+    Insere um novo produto no banco de dados.
+    """
     try:
         conn = conectar()
         cursor = conn.cursor()
@@ -89,9 +112,11 @@ def save_product(nome, descricao, preco, local_de_venda, categoria, usuario):
         print(f"[red]Erro ao salvar o produto: {e}[/red]")
         return False
     
-# Buscar produtos do banco de dados
 
 def meus_produtos(usuario):
+    """
+    Busca todos os produtos de um vendedor específico.
+    """
     conn = conectar()
     cursor = conn.cursor()
     cursor.execute("SELECT * FROM produto WHERE vendedor_id = ?", (usuario[0],))
@@ -99,9 +124,12 @@ def meus_produtos(usuario):
     conn.close()
     return produtos
 
-# Função para deletar o produto do banco de dados caso o vendedor queira
 
 def remove_product(produto_id ,usuario):
+    """
+    Remove um produto específico do banco de dados.
+    Apenas o vendedor dono do produto pode removê-lo.
+    """
     conn = conectar()
     cursor = conn.cursor()
     cursor.execute(
@@ -110,9 +138,11 @@ def remove_product(produto_id ,usuario):
     conn.commit()
     conn.close()
 
-# Remover usuário do banco de dados
 
 def remove_user(usuario):
+    """
+    Remove um usuário e todos os seus produtos do banco de dados.
+    """
     try:
         conn = conectar()
         cursor = conn.cursor()
@@ -127,9 +157,11 @@ def remove_user(usuario):
         print(f"Erro ao deletar a conta {e}")
         return False
 
-# Acessar todos os produtos disponiveis a venda
 
 def todos_produtos(usuario):
+    """
+    Busca todos os produtos disponíveis no banco de dados.
+    """
     conn = conectar()
     cursor = conn.cursor()
     cursor.execute("SELECT * FROM produto")

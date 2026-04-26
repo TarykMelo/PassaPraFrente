@@ -1,19 +1,33 @@
 import time
 from rich.panel import Panel
-from utils import*
+from utils.utils import*
 from functions.db_functions import*
 from functions.seller_functions import*
 from functions.user_functions import*
 from functions.functions_main import*
 
+"""
+Módulo buyer_functions
 
-# Função para ver todos os produtos disponiveis
+Este módulo contém funções relacionadas às operações do comprador.
+Inclui funcionalidades para visualizar todos os produtos disponíveis e filtrar produtos por categoria.
+"""
+
+
 
 def products_available(usuario):
+    """
+    Exibe todos os produtos disponíveis para o comprador.
+
+    Esta função limpa o terminal, busca todos os produtos disponíveis para o usuário
+    e os exibe em um painel formatado. Se não houver produtos, mostra uma mensagem
+    de aviso.
+    """
     limpar_terminal()
 
     produtos = todos_produtos(usuario)
 
+    # Caso não haja produto disponivel
     if not produtos:
         console.print(Panel(
             "[red]Nenhum produto cadastrado ainda![/red]",
@@ -25,6 +39,7 @@ def products_available(usuario):
         return
     texto = ""
     
+    # Caso tenha produto, uma lista de todos os produtos disponíveis
     for produto in produtos:
         texto +=(
             f"[bold]#{produto[0]} - {produto[1]}[/bold]\n"
@@ -46,6 +61,14 @@ def products_available(usuario):
 # Função para filtrar a categoria e ver os produtos disponíveis de lá
 
 def filtrar_produto():
+    """
+    Permite ao comprador filtrar produtos por categoria.
+
+    Esta função exibe um menu de categorias, solicita a escolha do usuário,
+    consulta o banco de dados com base na categoria selecionada e exibe os
+    produtos filtrados em um painel. Se não houver produtos na categoria,
+    mostra uma mensagem apropriada.
+    """
     limpar_terminal()
     console.print(Panel(
         "[1] Eletrônicos\n"

@@ -1,16 +1,29 @@
-from validations import*
+from utils.validations import*
 import time
 from rich.panel import Panel
-from utils import*
+from utils.utils import*
 from functions.db_functions import*
 from functions.seller_functions import*
 from functions.user_functions import*
 import maskpass
 from functions.buyer_functions import*
     
+"""
+Módulo functions_main
 
+Este módulo contém as funções principais, incluindo
+cadastro de usuários, login, e menus de navegação para vendedores e compradores.
+Gerencia o fluxo principal da aplicação e interações com o usuário.
+"""
 
 def cadastro():
+    """
+    Realiza o cadastro de um novo usuário no sistema.
+
+    Esta função guia o usuário através do processo de cadastro, solicitando
+    email institucional, senha, nickname e telefone, com validações em cada etapa.
+    Salva os dados no banco se todas as validações passarem.
+    """
     limpar_terminal()
 
     #Digitar email
@@ -109,6 +122,12 @@ def cadastro():
             continue
 
 def login():
+    """
+    Realiza o login de um usuário existente.
+
+    Solicita email e senha, verifica se o usuário existe e se a senha está correta.
+    Se válido, direciona para o menu do usuário.
+    """
     while True:
         limpar_terminal()
         console.print(Panel(
@@ -126,22 +145,26 @@ def login():
             time.sleep(2)
             continue
         
-        senha = usuario[2]
-
-        if senha:
+        if senha == usuario[2]:
             console.print(f"[green]Bem-vindo, {usuario[3]}![/green] ")
             time.sleep(2)
             user_menu(usuario)
             break
+        
         else:
             console.print(f"[red]❌ A senha não está correta![/red]")
             time.sleep(2)
             continue
 
 
-#Menu do usuário
 
 def user_menu(usuario):
+    """
+    Exibe o menu principal do usuário logado.
+
+    Oferece opções para vender itens, comprar itens, modificar dados pessoais,
+    deletar conta ou sair. Direciona para os submenus apropriados.
+    """
     while True:
         limpar_terminal()
         
@@ -177,7 +200,7 @@ def user_menu(usuario):
                 continue
             elif user_choice == 4:
                 user_remove(usuario)
-                continue
+                break
             elif user_choice == 5:
                 console.print("[red]Saindo...[/red]")
                 time.sleep(2)
@@ -191,9 +214,14 @@ def user_menu(usuario):
             time.sleep(2)
             continue
 
-#Menu do vendedor
 
 def seller_menu(usuario):
+    """
+    Exibe o menu do vendedor.
+
+    Permite registrar uma venda, ver vendas existentes, voltar ao menu principal
+    ou sair do programa.
+    """
     while True:
         limpar_terminal()
 
@@ -239,9 +267,15 @@ def seller_menu(usuario):
             time.sleep(2)
             continue
 
-#Menu do usuário para comprar o item
 
 def buyer_menu(usuario):
+    """
+    Exibe o menu do comprador.
+
+    Oferece opções para ver todos os produtos, filtrar por categoria,
+    ver produtos selecionados (não implementado), voltar ao menu principal
+    ou sair.
+    """
     while True:
         limpar_terminal()
 

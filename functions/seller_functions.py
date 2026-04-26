@@ -1,10 +1,19 @@
-from validations import*
+from utils.validations import*
 import time
 from rich.panel import Panel
-from utils import*
+from utils.utils import*
 from functions.db_functions import*
 from functions.functions_main import*
 
+"""
+Módulo seller_functions
+
+Este módulo contém funções relacionadas às operações do vendedor
+Inclui funcionalidades para cadastrar produtos para venda e gerenciar produtos já cadastrados,
+como visualizar e remover produtos.
+"""
+
+# Dicionário de categorias disponíveis para produtos
 CATEGORIAS = {
     "1": "Eletrônicos",
     "2": "Livros",
@@ -14,9 +23,15 @@ CATEGORIAS = {
     "6": "Outros"
 }
 
-# CADASTRAR O PRODUTO PARA VENDER
 
 def sell_item(usuario):
+    """
+    Permite ao vendedor cadastrar um novo produto para venda.
+
+    Esta função guia o usuário através de um processo interativo para inserir
+    detalhes do produto (nome, descrição, preço, local, categoria), valida as
+    entradas, confirma os dados e salva o produto no banco de dados se aprovado.
+    """
     while True:
         limpar_terminal()
         console.print(Panel(
@@ -110,8 +125,14 @@ def sell_item(usuario):
             time.sleep(2)
             continue
 
-# Função para ver os produtos cadastrados.
 def seller_products(usuario):
+    """
+    Exibe os produtos cadastrados pelo vendedor e permite remover produtos.
+
+    Esta função lista todos os produtos do vendedor, oferece opções para remover
+    um produto específico ou voltar ao menu anterior. Inclui validações para
+    garantir que o produto existe antes de tentar removê-lo.
+    """
     while True:
         limpar_terminal()
         produtos = meus_produtos(usuario)
@@ -147,7 +168,6 @@ def seller_products(usuario):
             option = int(input("Escolha a opção: ").strip())
             
             if option == 1:
-                # Usuário escolheu remover o item
                 while True:
                     console.print("Escolha qual produto você quer retirar")
                     try:

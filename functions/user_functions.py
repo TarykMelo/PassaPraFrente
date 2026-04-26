@@ -1,15 +1,27 @@
-from validations import validar_senha, validar_tel
+from utils.validations import validar_senha, validar_tel
 import time
 from rich.panel import Panel
-from utils import*
+from utils.utils import*
 from functions.functions_main import*
 from functions.db_functions import*
 from functions.seller_functions import*
 import maskpass
 
-# Remover usuário
+"""
+Módulo user_functions
+
+Este módulo contém funções relacionadas ao gerenciamento de contas de usuários. 
+Inclui funcionalidades para remover conta, modificar dados pessoais (senha, telefone, nickname).
+"""
+
 def user_remove(usuario):
-    
+    """
+    Remove a conta do usuário após confirmação e validação de senha.
+
+    Solicita ao usuário que confirme a remoção da conta e digite sua senha
+    para validar. Se confirmado, remove o usuário e todos os seus produtos.
+    """
+
     while True:
         limpar_terminal()
         console.print(Panel(
@@ -22,18 +34,31 @@ def user_remove(usuario):
         confirm = input("Você tem certeza?")
         
         if confirm == "s":
-            password = input("Senha: ")
+            password = maskpass.askpass("Senha: ", mask="*").strip()
             valid_password = usuario[2]
 
             if password not in valid_password:
+                
                 console.print("[red]Senha não está correta![/red]")
                 time.sleep(2)
                 continue
             else:
-                remove_user(usuario)
-                console.print("[red]Usuário removido, adeus...[/red]")
-                time.sleep(3)
-                break
+                
+                confirmacao = input("Você tem certeza que deseja deletar a conta? Essa ação é irreversível! (s/n)").strip().lower()
+
+                if confirmacao == "s":
+                    remove_user(usuario)
+                    console.print("[red]Usuário removido, adeus...[/red]")
+                    time.sleep(3)
+                    break
+                elif confirmacao =="n":
+                    console.print("[yellow]Obrigado por desistir de deletar a conta![/yellow]")
+                    time.sleep(1)
+                    break
+                else:
+                    console.print("[red]Opção inválida, digite somente s ou n[/red]")
+                    time.sleep(1)
+                    continue
         elif confirm == "n":
             console.print("[yellow]Obrigado por desistir de deletar a conta![/yellow]")
             time.sleep(1)
@@ -44,8 +69,13 @@ def user_remove(usuario):
             continue
 
 
-#Modificar o usuário
 def user_modify(usuario):
+    """
+    Exibe menu para o usuário modificar seus dados pessoais.
+
+    Oferece opções para modificar nickname, telefone ou senha. 
+    Cada modificação requer confirmação do usuário.
+    """
 
     while True:
         limpar_terminal()
@@ -91,8 +121,13 @@ def user_modify(usuario):
             time.sleep(2)
             continue
 
-#Função para modificar a senha
 def password_modify(usuario):
+    """
+    Permite ao usuário modificar sua senha com validações.
+
+    Solicita senha atual para validação, nova senha com validação de requisitos,
+    confirmação da nova senha e confirmação final antes de atualizar no banco.
+    """
     while True:
         limpar_terminal()
         console.print(Panel(
@@ -128,7 +163,7 @@ def password_modify(usuario):
                     cursor = conn.cursor()
                     cursor.execute("UPDATE usuario SET senha = ? WHERE id = ?",
                     (nova_senha, usuario[0]))
-                    linhas_afetadas = cursor.rowcount # Entrar no banco de dados e ver se possui alguma mudança
+                    linhas_afetadas = cursor.rowcount 
                     conn.commit()
                     conn.close()
                     
@@ -158,8 +193,13 @@ def password_modify(usuario):
             time.sleep(2)
             continue
 
-#Função para modificar o telefone
 def tel_modify(usuario):
+    """
+    Permite ao usuário modificar seu número de telefone.
+
+    Solicita novo número de telefone, valida o formato e pede confirmação
+    antes de atualizar no banco de dados.
+    """
     while True:
         telefone = input("Digite o seu novo número de telefone: ")
         tel_validation, erro = validar_tel(telefone)
@@ -172,7 +212,7 @@ def tel_modify(usuario):
                 cursor = conn.cursor()
                 cursor.execute("UPDATE usuario SET telefone = ? WHERE id = ?",
                 (telefone, usuario[0]))
-                linhas_afetadas = cursor.rowcount # Entrar no banco de dados e ver se possui alguma mudança
+                linhas_afetadas = cursor.rowcount
                 conn.commit()
                 conn.close()
                 
@@ -197,8 +237,13 @@ def tel_modify(usuario):
             time.sleep(2)
             continue
 
-#Modificar o nickname do usuário
 def nickname_modify(usuario):
+    """
+    Permite ao usuário modificar seu nickname.
+
+    Solicita novo nickname, valida sua disponibilidade (unicidade) e pede
+    confirmação antes de atualizar no banco de dados.
+    """
     while True:
         nick = input("Digite o seu novo nickname: ").strip()
 
@@ -211,7 +256,7 @@ def nickname_modify(usuario):
                     cursor = conn.cursor()
                     cursor.execute("UPDATE usuario SET nickname = ? WHERE id = ?",
                     (nick, usuario[0]))
-                    linhas_afetadas = cursor.rowcount # Entrar no banco de dados e ver se possui alguma mudança
+                    linhas_afetadas = cursor.rowcount
                     conn.commit()
                     conn.close()
                     

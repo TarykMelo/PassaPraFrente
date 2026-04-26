@@ -2,9 +2,14 @@ from functions.functions_main import*
 import time
 from rich.console import Console
 from rich.panel import Panel
-from utils import limpar_terminal
+from utils.utils import limpar_terminal
 from functions.db_functions import product_table, criar_tabela
+"""
+Módulo principal
 
+Este módulo é o principal para rodar o projeto e contém a função com o menu inicial e as 
+funções necessárias para a criação do banco de dados
+"""
 
 
 def menu_inicial():
