@@ -13,8 +13,6 @@ Este módulo contém funções relacionadas às operações do comprador.
 Inclui funcionalidades para visualizar todos os produtos disponíveis e filtrar produtos por categoria.
 """
 
-
-
 def products_available(usuario):
     """
     Exibe todos os produtos disponíveis para o comprador.

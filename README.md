@@ -1,7 +1,3 @@
-# 🛒 PassaPraFrente
-
-> Marketplace interno para compra e venda de produtos entre membros da UFRPE.
-
 ## 📌 Sobre o projeto
 
 O **PassaPraFrente** é uma plataforma desenvolvida em **Python** com o objetivo de facilitar a compra e venda de produtos entre estudantes e membros da **Universidade Federal Rural de Pernambuco (UFRPE)**.
@@ -20,6 +16,8 @@ Criar um espaço digital onde usuários possam:
 ## 🛠️ Tecnologias utilizadas
 
 * 🐍 Python
+* SQlite3
+
 
 ## ⚙️ Funcionalidades
 
@@ -41,6 +39,7 @@ Criar um espaço digital onde usuários possam:
 
 ## 🚀 Como rodar o projeto
 
+* Git clone https://github.com/TarykMelo/PassaPraFrente.git
 * Baixe os requisitos com pip install requirements.txt
 * Inicie o projeto pelo arquivo main.py
 
