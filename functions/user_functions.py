@@ -34,7 +34,13 @@ def user_remove(usuario):
         confirm = input("Você tem certeza?")
         
         if confirm == "s":
-            password = maskpass.askpass("Senha: ", mask="*").strip()
+            try:
+                password = maskpass.askpass("Senha: ", mask="*").strip()
+            except Exception:
+                console.print("[red]❌ Erro ao ler a senha, evite caracteres com acentuação(ç, á, à...)[/red]")
+                time.sleep(2)
+                continue
+            
             valid_password = usuario[2]
 
             if password not in valid_password:
@@ -139,20 +145,33 @@ def password_modify(usuario):
             title="[bold white]Menu do usuário - Modificar senha[/bold white]",
             border_style="green"
         ))
-        
-        senha_atual = maskpass.askpass("Digite a sua senha atual: ", mask="*").strip()
+        try:
+            senha_atual = maskpass.askpass("Digite a sua senha atual: ", mask="*").strip()
+        except Exception:
+            console.print("[red]❌ Erro ao ler a senha, evite caracteres com acentuação(ç, á, à...)[/red]")
+            time.sleep(2)
+            continue
         valid_password = usuario[2]
         
         if senha_atual != valid_password:
             console.print("[red]Senha atual errada![/red]")
             time.sleep(2)
             continue
-        
-        nova_senha = maskpass.askpass("Digite a nova senha: ", mask="*").strip()
+        try:
+            nova_senha = maskpass.askpass("Digite a nova senha: ", mask="*").strip()
+        except Exception:
+            console.print("[red]❌ Erro ao ler a senha, evite caracteres com acentuação(ç, á, à...)[/red]")
+            time.sleep(2)
+            continue
         senha_validation , erro = validar_senha(nova_senha)
 
         if senha_validation:
-            confirm_senha = maskpass.askpass("Confirme a senha: ", mask="*").strip()
+            try:
+                confirm_senha = maskpass.askpass("Confirme a senha: ", mask="*").strip()
+            except Exception:
+                console.print("[red]❌ Erro ao ler a senha, evite caracteres especiais![/red]")
+                time.sleep(2)
+                continue
             
             if confirm_senha == nova_senha:
                 confirm = input("Voce tem certeza que deseja colocar essa senaha nova?(s/n) ")

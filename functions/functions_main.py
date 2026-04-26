@@ -58,7 +58,12 @@ def cadastro():
             title="[bold white]Área de cadastro[/bold white]",
             border_style="green"
         ))
-        senha = maskpass.askpass("Crie uma senha: ", mask="*").strip()
+        try:
+            senha = maskpass.askpass("Crie uma senha: ", mask="*").strip()
+        except Exception:
+            console.print("[red]❌ Erro ao ler a senha, evite caracteres com acentuação(ç, á, à...)[/red]")
+            time.sleep(2)
+            continue
         senha_validation , erro = validar_senha(senha)
 
         if senha_validation:
@@ -136,8 +141,13 @@ def login():
             border_style="green"
         ))
         email = input("Insira o seu email: ").lower().strip()
-        senha = maskpass.askpass("Insira a sua senha: ", mask="*").strip()
 
+        try:
+            senha = maskpass.askpass("Insira a sua senha: ", mask="*").strip()
+        except Exception:
+            console.print("[red]❌ Erro ao ler a senha, evite caracteres com acentuação(ç, á, à...)[/red]")
+            time.sleep(2)
+            continue
         usuario = buscar_usuario(email)
         
         if usuario is None:
