@@ -31,7 +31,7 @@ def user_remove(usuario):
             border_style= "red"
         ))
         
-        confirm = input("Você tem certeza?")
+        confirm = input("Você tem certeza?").strip()
         
         if confirm == "s":
             try:

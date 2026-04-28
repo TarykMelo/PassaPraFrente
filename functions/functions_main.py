@@ -24,7 +24,6 @@ def cadastro():
     email institucional, senha, nickname e telefone, com validações em cada etapa.
     Salva os dados no banco se todas as validações passarem.
     """
-    limpar_terminal()
 
     #Digitar email
     while True:
@@ -75,6 +74,7 @@ def cadastro():
             else:
                 print("As senhas não são a mesma!")
                 time.sleep(2)
+                continue
         else:
             print(erro)
             time.sleep(2)

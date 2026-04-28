@@ -54,5 +54,5 @@ def menu_inicial():
 
 if __name__ == "__main__":
     criar_tabela()
+    product_table()
     menu_inicial()
-    product_table()        

@@ -82,7 +82,7 @@ def validar_tel(tel):
     """
 
     erros = []
-    if not re.search(r"^\(?\d{2}\)?[\s-]?\d{4,5}-?\d{4}$", tel):
+    if not re.search(r"^\(?81\)?[\s-]?\d{4,5}-?\d{4}$", tel):
         erros.append("❌Telefone não é válido, precisa ser igual do padrão acima")
     if erros:
         return False, "\n".join(erros)

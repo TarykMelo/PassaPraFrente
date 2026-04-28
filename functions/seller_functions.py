@@ -174,7 +174,9 @@ def seller_products(usuario):
 
                         produto_id = int(input("Digite o # do produto que você quer remover: ").strip())
 
-                        id_valido = [produto[0] for produto in produtos]
+                        id_valido = []
+                        for produto in produtos:
+                            id_valido.append(produto[0])
 
                         if produto_id not in id_valido:
                             console.print("[red]Produto não foi encontrado![/red]")
