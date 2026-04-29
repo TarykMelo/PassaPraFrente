@@ -47,7 +47,7 @@ PassaPraFrente/
 └── utils/
     ├── utils.py               # Funções utilitárias
     └── validations.py         # Validação de dados
-
+```
 ## ⚙️ RELEASE 1.0
 
 * 👤 Sistema de cadastro e login de usuários
