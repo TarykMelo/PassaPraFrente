@@ -23,30 +23,31 @@ Criar um espaço digital onde usuários possam:
 ```bash
 PassaPraFrente/
 │
-├── main.py                    # Arquivo principal
-├── requirements.txt           # Dependências
-├── README.md                  # Documentação
+├── main.py                       # Inicialização do sistema
+├── README.md                     # Documentação principal
+├── requirements.txt              # Dependências do projeto
 │
 ├── database/
-│   ├── db_functions.py        # Operações do banco de dados
-│   └── passaprafrente.db      # Banco SQLite
+│   ├── db_functions.py           # Funções de banco de dados
+│   └── passaprafrente.db         # Banco SQLite
+│
+├── interfaces/
+│   ├── initial_menu.py           # Menu inicial
+│   ├── user_menu.py              # Menu principal do usuário
+│   ├── buyer_menu.py             # Área do comprador
+│   └── seller_menu.py            # Área do vendedor
 │
 ├── user/
-│   ├── menus.py               # Menus principais
-│   ├── user_account.py        # Cadastro e login
-│   ├── user_changes.py        # Alteração de dados
-│   │
+│   ├── user_account.py           # Cadastro e login
+│   ├── user_changes.py           # Alterações na conta
 │   ├── buyer/
-│   │   ├── buyer_menu.py      # Menu do comprador
-│   │   └── buyer_functions.py # Funções de compra
-│   │
+│   │   └── buyer_functions.py    # Funções de compra
 │   └── seller/
-│       ├── seller_menu.py     # Menu do vendedor
-│       └── seller_functions.py# Funções de venda
+│       └── seller_functions.py   # Funções de venda
 │
 └── utils/
-    ├── utils.py               # Funções utilitárias
-    └── validations.py         # Validação de dados
+    ├── utils.py                  # Utilitários gerais
+    └── validations.py            # Validação de dados
 ```
 ## ⚙️ RELEASE 1.0
 
