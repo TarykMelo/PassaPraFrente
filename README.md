@@ -68,11 +68,18 @@ PassaPraFrente/
 
 ▶️ Como Executar
 Clone o repositório:
+```
 git clone https://github.com/TarykMelo/PassaPraFrente.git
 cd PassaPraFrente
+```
 Instale as dependências:
+```
 pip install -r requirements.txt
+```
 Execute:
+```
+python main.py
+```
 
 ## 🔐 Público-alvo
 
