@@ -129,7 +129,7 @@ def seller_products(usuario):
     """
     Exibe os produtos cadastrados pelo vendedor e permite remover produtos.
 
-    Esta função lista todos os produtos do vendedor, oferece opções para remover
+    Esta função lista  os produtos do vendedor, oferece opções para remover
     um produto específico ou voltar ao menu anterior. Inclui validações para
     garantir que o produto existe antes de tentar removê-lo.
     """

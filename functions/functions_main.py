@@ -37,11 +37,11 @@ def cadastro():
         validation = validar_email(email)
 
         if validation:
-            print("Email cadastrado com sucesso!")
+            print("[green]Email cadastrado com sucesso![/green]")
             time.sleep(2)
             break
         else:
-            print("Email não foi aceito, digite de acordo com o padrão pedido")
+            print("[red]Email não foi aceito, digite de acordo com o padrão pedido[/red]")
             time.sleep(2)
 
 
@@ -60,7 +60,7 @@ def cadastro():
         try:
             senha = maskpass.askpass("Crie uma senha: ", mask="*").strip()
         except Exception:
-            console.print("[red]❌ Erro ao ler a senha, evite caracteres com acentuação(ç, á, à...)[/red]")
+            console.print("[red] Erro ao ler a senha, evite caracteres com acentuação(ç, á, à...)[/red]")
             time.sleep(2)
             continue
         senha_validation , erro = validar_senha(senha)
@@ -68,11 +68,11 @@ def cadastro():
         if senha_validation:
             confirm = maskpass.askpass("Confirme a sua senha: ", mask="*").strip()
             if confirm == senha:
-                print("Senha cadastrada!")
+                print("[green]Senha cadastrada![/green]")
                 time.sleep(1)
                 break
             else:
-                print("As senhas não são a mesma!")
+                print("[red]As senhas não são a mesma![/red]")
                 time.sleep(2)
                 continue
         else:
@@ -92,7 +92,7 @@ def cadastro():
         user_confirm , erro = validar_user(user)
 
         if user_confirm:
-            print("Nickname aceito!")
+            print("[green]Nickname aceito![/green]")
             time.sleep(1)
             break
         else:
@@ -116,7 +116,7 @@ def cadastro():
             # salvar o cadastro no banco de dados
             success = salvar_usuario(email, senha, user, tel)
             if success:
-                print("Telefone aceito, conta cadastrada!")
+                print("[green]Telefone aceito, conta cadastrada![/green]")
             else:
                 print("Já possui uma conta cadastrada com esse email ou nickname!")
             time.sleep(2)
@@ -307,16 +307,17 @@ def buyer_menu(usuario):
             if user_choice == 1:
                 console.print("[green]Acessando os produtos disponiveis...[/green]")
                 time.sleep(1)
-                products_available(usuario)
+                comprar_produto(usuario)
                 continue
             elif user_choice == 2:
                 console.print("[green]Acessando as categorias disponiveis[/green]")
                 time.sleep(1)
-                filtrar_produto()
+                filtrar_produto(usuario)
                 continue
             elif user_choice == 3:
                 console.print("[green]Acessando os produtos que você escolheu![/green]")
                 time.sleep(1)
+                ver_meus_pedidos(usuario)
                 continue
             elif user_choice == 4:
                 console.print("[green]Voltando para o menu principal...[/green]")

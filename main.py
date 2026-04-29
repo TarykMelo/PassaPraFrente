@@ -3,7 +3,7 @@ import time
 from rich.console import Console
 from rich.panel import Panel
 from utils.utils import limpar_terminal
-from functions.db_functions import product_table, criar_tabela
+from functions.db_functions import product_table, criar_tabela, criar_tabela_pedidos
 """
 Módulo principal
 
@@ -55,4 +55,5 @@ def menu_inicial():
 if __name__ == "__main__":
     criar_tabela()
     product_table()
+    criar_tabela_pedidos()
     menu_inicial()

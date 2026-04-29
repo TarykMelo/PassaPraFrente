@@ -159,12 +159,62 @@ def remove_user(usuario):
 
 
 def todos_produtos(usuario):
-    """
-    Busca todos os produtos disponíveis no banco de dados.
-    """
     conn = conectar()
     cursor = conn.cursor()
-    cursor.execute("SELECT * FROM produto")
+    cursor.execute("""
+        SELECT * FROM produto 
+        WHERE vendedor_id != ?
+        AND id NOT IN (
+            SELECT produto_id FROM pedidos WHERE comprador_id = ?
+        )
+    """, (usuario[0], usuario[0]))
     produtos = cursor.fetchall()
     conn.close()
     return produtos
+
+def criar_tabela_pedidos():
+    conn = conectar()
+    cursor = conn.cursor()
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS pedidos (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            produto_id INTEGER NOT NULL,
+            produto_nome TEXT NOT NULL,
+            produto_preco REAL NOT NULL,
+            comprador_id INTEGER NOT NULL,
+            comprador_nickname TEXT NOT NULL,
+            vendedor_id INTEGER NOT NULL,
+            vendedor_nickname TEXT NOT NULL,
+            vendedor_telefone TEXT NOT NULL,
+            FOREIGN KEY (produto_id) REFERENCES produtos(id),
+            FOREIGN KEY (comprador_id) REFERENCES usuarios(id)
+        )
+    """)
+    conn.commit()
+    conn.close()
+
+def fazer_pedido(produto, usuario):
+    try:
+        conn = conectar()
+        cursor = conn.cursor()
+        cursor.execute(
+            "INSERT INTO pedidos (produto_id, produto_nome, produto_preco, comprador_id, comprador_nickname, vendedor_id, vendedor_nickname, vendedor_telefone) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+            (produto[0], produto[1], produto[3], usuario[0], usuario[3], produto[5], produto[6], produto[7])
+        )
+        conn.commit()
+        conn.close()
+        return True
+    except Exception as e:
+        console.print(f"[red]Erro ao salvar pedido: {e}[/red]")
+        return False
+
+def produto_ja_pedido(produto_id, usuario):
+    conn = conectar()
+    cursor = conn.cursor()
+    cursor.execute(
+        "SELECT * FROM pedidos WHERE produto_id = ? AND comprador_id = ?",
+        (produto_id, usuario[0])
+    )
+    pedido = cursor.fetchone()
+    conn.close()
+    return pedido is not None
