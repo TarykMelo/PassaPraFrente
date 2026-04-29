@@ -19,7 +19,7 @@ Criar um espaço digital onde usuários possam:
 * SQlite3
 
 
-## ⚙️ Funcionalidades
+## ⚙️ RELEASE 1.0
 
 * 👤 Sistema de cadastro e login de usuários
 * 📦 Cadastro de produtos para venda
@@ -51,7 +51,7 @@ Este sistema é destinado exclusivamente a:
 
 
 
-## 💡 Possíveis melhorias futuras
+## 💡 RELEASE 2.0
 
 * 🔧 Mais opções de personalização para o vendedor
 * 🌐 Lançamento de um site
