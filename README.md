@@ -105,6 +105,7 @@ Desenvolvido por **Taryk Melo**
 * GitHub: https://github.com/TarykMelo
 
 ---
-📌 Link do Fluxograma e planilha
+📌 Link do Fluxograma, planilha e video
 
 https://drive.google.com/drive/u/2/folders/1hqp1vxdU2zF_4JHbeKrq4hTMdvCL3JUF
+https://www.youtube.com/watch?v=-m3AzsgBPsk
