@@ -3,7 +3,7 @@ import time
 from rich.panel import Panel
 from utils.utils import*
 from database.db_functions import*
-from user.menus import*
+from interfaces.initial_menu import*
 
 """
 Módulo seller_functions

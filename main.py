@@ -1,6 +1,6 @@
 
 from database.db_functions import product_table, criar_tabela, criar_tabela_pedidos
-from user.menus import menu_inicial
+from interfaces.initial_menu import menu_inicial
 """
 Módulo principal
 

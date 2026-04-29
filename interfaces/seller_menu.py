@@ -43,7 +43,7 @@ def seller_menu(usuario):
             elif user_choice == 3:
                 console.print("[green]Voltando para o menu principal...[/green]")
                 time.sleep(1)
-                from user.menus import user_menu  
+                from interfaces.user_menu import user_menu  
                 user_menu(usuario)
                 break
             elif user_choice == 4:

@@ -6,6 +6,7 @@ from utils.utils import*
 from database.db_functions import*
 import maskpass
 
+
 def cadastro():
     """
     Realiza o cadastro de um novo usuário no sistema.
@@ -153,7 +154,7 @@ def login():
         if senha == usuario[2]:
             console.print(f"[green]Bem-vindo, {usuario[3]}![/green] ")
             time.sleep(2)
-            from user.menus import user_menu
+            from interfaces.user_menu import user_menu
             user_menu(usuario)
             break
         
