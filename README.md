@@ -18,8 +18,37 @@ Criar um espaço digital onde usuários possam:
 * 🐍 Python
 * SQlite3
 
+## 🏗️ Estrutura do Projeto
 
-## ⚙️ Funcionalidades
+```bash
+PassaPraFrente/
+│
+├── main.py                    # Arquivo principal
+├── requirements.txt           # Dependências
+├── README.md                  # Documentação
+│
+├── database/
+│   ├── db_functions.py        # Operações do banco de dados
+│   └── passaprafrente.db      # Banco SQLite
+│
+├── user/
+│   ├── menus.py               # Menus principais
+│   ├── user_account.py        # Cadastro e login
+│   ├── user_changes.py        # Alteração de dados
+│   │
+│   ├── buyer/
+│   │   ├── buyer_menu.py      # Menu do comprador
+│   │   └── buyer_functions.py # Funções de compra
+│   │
+│   └── seller/
+│       ├── seller_menu.py     # Menu do vendedor
+│       └── seller_functions.py# Funções de venda
+│
+└── utils/
+    ├── utils.py               # Funções utilitárias
+    └── validations.py         # Validação de dados
+```
+## ⚙️ RELEASE 1.0
 
 * 👤 Sistema de cadastro e login de usuários
 * 📦 Cadastro de produtos para venda
@@ -37,11 +66,13 @@ Criar um espaço digital onde usuários possam:
 * maskpass -> Ocultação de dados importantes do usuário
 * os -> Biblioteca para interação com o sistema operacional
 
-## 🚀 Como rodar o projeto
-
-* Git clone https://github.com/TarykMelo/PassaPraFrente.git
-* Baixe os requisitos com pip install requirements.txt
-* Inicie o projeto pelo arquivo main.py
+▶️ Como Executar
+Clone o repositório:
+git clone https://github.com/TarykMelo/PassaPraFrente.git
+cd PassaPraFrente
+Instale as dependências:
+pip install -r requirements.txt
+Execute:
 
 ## 🔐 Público-alvo
 
@@ -51,7 +82,7 @@ Este sistema é destinado exclusivamente a:
 
 
 
-## 💡 Possíveis melhorias futuras
+## 💡 RELEASE 2.0
 
 * 🔧 Mais opções de personalização para o vendedor
 * 🌐 Lançamento de um site
@@ -67,4 +98,6 @@ Desenvolvido por **Taryk Melo**
 * GitHub: https://github.com/TarykMelo
 
 ---
+📌 Link do Fluxograma e planilha
 
+https://drive.google.com/drive/u/2/folders/1hqp1vxdU2zF_4JHbeKrq4hTMdvCL3JUF
