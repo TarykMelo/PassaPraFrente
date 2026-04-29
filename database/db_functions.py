@@ -1,7 +1,5 @@
-from functions.functions_main import*
 from utils.validations import*
 import sqlite3
-from rich.console import Console
 """
 Módulo db_functions
 
@@ -12,7 +10,7 @@ def conectar():
     """
     Conexão com o banco de dados SQLite.
     """
-    return sqlite3.connect("passaprafrente.db")
+    return sqlite3.connect("database/passaprafrente.db")
 
 def criar_tabela():
     """

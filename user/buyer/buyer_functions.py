@@ -1,10 +1,9 @@
 import time
 from rich.panel import Panel
 from utils.utils import*
-from functions.db_functions import*
-from functions.seller_functions import*
-from functions.user_functions import*
-from functions.functions_main import*
+from database.db_functions import*
+from user.seller.seller_functions import*
+from user.user_changes import*
 
 """
 Módulo buyer_functions

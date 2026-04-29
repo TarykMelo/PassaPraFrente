@@ -2,9 +2,8 @@ from utils.validations import validar_senha, validar_tel
 import time
 from rich.panel import Panel
 from utils.utils import*
-from functions.functions_main import*
-from functions.db_functions import*
-from functions.seller_functions import*
+from database.db_functions import*
+from user.seller.seller_functions import*
 import maskpass
 
 """
