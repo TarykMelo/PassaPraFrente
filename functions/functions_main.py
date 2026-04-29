@@ -1,5 +1,6 @@
 from utils.validations import*
 import time
+from rich.console import Console
 from rich.panel import Panel
 from utils.utils import*
 from functions.db_functions import*
@@ -37,11 +38,11 @@ def cadastro():
         validation = validar_email(email)
 
         if validation:
-            print("[green]Email cadastrado com sucesso![/green]")
+            console.print("[green]Email cadastrado com sucesso![/green]")
             time.sleep(2)
             break
         else:
-            print("[red]Email não foi aceito, digite de acordo com o padrão pedido[/red]")
+            console.print("[red]Email não foi aceito, digite de acordo com o padrão pedido[/red]")
             time.sleep(2)
 
 
@@ -66,13 +67,18 @@ def cadastro():
         senha_validation , erro = validar_senha(senha)
 
         if senha_validation:
-            confirm = maskpass.askpass("Confirme a sua senha: ", mask="*").strip()
+            try:
+                confirm = maskpass.askpass("Crie uma senha: ", mask="*").strip()
+            except Exception:
+                console.print("[red] Erro ao ler a senha, evite caracteres com acentuação(ç, á, à...)[/red]")
+                time.sleep(2)
+                continue
             if confirm == senha:
-                print("[green]Senha cadastrada![/green]")
+                console.print("[green]Senha cadastrada![/green]")
                 time.sleep(1)
                 break
             else:
-                print("[red]As senhas não são a mesma![/red]")
+                console.print("[red]As senhas não são a mesma![/red]")
                 time.sleep(2)
                 continue
         else:
@@ -92,7 +98,7 @@ def cadastro():
         user_confirm , erro = validar_user(user)
 
         if user_confirm:
-            print("[green]Nickname aceito![/green]")
+            console.print("[green]Nickname aceito![/green]")
             time.sleep(1)
             break
         else:
@@ -116,9 +122,9 @@ def cadastro():
             # salvar o cadastro no banco de dados
             success = salvar_usuario(email, senha, user, tel)
             if success:
-                print("[green]Telefone aceito, conta cadastrada![/green]")
+                console.print("[green]Telefone aceito, conta cadastrada![/green]")
             else:
-                print("Já possui uma conta cadastrada com esse email ou nickname!")
+                console.print("[red]Já possui uma conta cadastrada com esse email ou nickname![/red]")
             time.sleep(2)
             break
         else:
